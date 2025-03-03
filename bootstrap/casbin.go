@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"0121_1/global"
+	"fmt"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 )
@@ -9,16 +10,19 @@ import (
 func casbinInit() *casbin.Enforcer {
 	db, err := gormadapter.NewAdapterByDB(global.App.DB)
 	if err != nil {
+		global.App.Log.Error(fmt.Sprintf("failed to initialize Casbin adapter: %w", err))
 		return nil
 	}
 
 	enforcer, err := casbin.NewEnforcer("model.conf", db)
 	if err != nil {
+		global.App.Log.Error(fmt.Sprintf("failed to initialize Casbin enforcer: %w", err))
 		return nil
 	}
 
 	err = enforcer.LoadPolicy()
 	if err != nil {
+		global.App.Log.Error(fmt.Sprintf("failed to load Casbin policy: %w", err))
 		return nil
 	}
 

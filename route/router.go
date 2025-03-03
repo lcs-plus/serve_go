@@ -11,8 +11,6 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.Use(middleware.CasbinMiddleware(global.App.Casbin))
-
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "OK")
 	})
@@ -20,6 +18,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
 
+	r.Use(middleware.CasbinMiddleware(global.App.Casbin))
 	r.GET("/get-list", controller.GetList)
 
 	r.GET("/get-es-list", controller.GetTestList)

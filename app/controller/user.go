@@ -40,7 +40,7 @@ func Login(c *gin.Context) {
 
 	if result != nil {
 
-		accessToken, err := utils.GetToken(result.ID.ID, result.Name)
+		accessToken, err := utils.GetCacheToken(result.ID.ID, result.Role)
 		if err != nil {
 			panic(err)
 		}
