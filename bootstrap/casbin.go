@@ -6,20 +6,20 @@ import (
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 )
 
-func casbinInit() {
+func casbinInit() *casbin.Enforcer {
 	db, err := gormadapter.NewAdapterByDB(global.App.DB)
 	if err != nil {
-		return
+		return nil
 	}
 
 	enforcer, err := casbin.NewEnforcer("model.conf", db)
 	if err != nil {
-		return
+		return nil
 	}
 
 	err = enforcer.LoadPolicy()
 	if err != nil {
-		return
+		return nil
 	}
 
 	// 添加策略（如果数据库中没有策略）
@@ -42,4 +42,6 @@ func casbinInit() {
 	if !policy {
 		_, _ = enforcer.AddGroupingPolicy("bob", "user")
 	}
+
+	return enforcer
 }

@@ -19,5 +19,5 @@ func Init() {
 	global.App.EsClient = ElasticInit()
 
 	//初始化Casbin
-	casbinInit()
+	global.App.Casbin = casbinInit()
 }
