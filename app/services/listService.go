@@ -14,6 +14,14 @@ func GetList(listForm *models.GetListForm) *[]models.List {
 		model.Where("(title like ? Or content like ?)", "%"+listForm.Keyword+"%", "%"+listForm.Keyword+"%")
 	}
 
+	model.Where("status = ?", listForm.Status)
+
+	if listForm.Sort != "" {
+		model.Order(listForm.Sort)
+	} else {
+		model.Order("id desc")
+	}
+
 	var list *[]models.List
 	model.Find(&list)
 	return list

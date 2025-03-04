@@ -19,7 +19,7 @@ func InitRouter() *gin.Engine {
 	r.POST("/login", controller.Login)
 
 	r.Use(middleware.CasbinMiddleware(global.App.Casbin))
-	r.GET("/get-list", controller.GetList)
+	r.POST("/api/get-list", controller.GetList)
 
 	r.GET("/get-es-list", controller.GetTestList)
 

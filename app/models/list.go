@@ -11,11 +11,11 @@ type List struct {
 }
 
 type GetListForm struct {
-	Page    int64  `form:"page" binding:"required,min=1"`
-	Limit   int64  `form:"limit" binding:"required,min=1,max=100"`
-	Sort    string `form:"sort"`
-	Status  int64  `form:"status"`
-	Keyword string `form:"keyword"`
+	Page    int64  `json:"page" form:"page" binding:"required,min=1"`
+	Limit   int64  `json:"limit" form:"limit" binding:"required,min=1,max=100"`
+	Sort    string `json:"sort" form:"sort"`
+	Status  int64  `json:"status" form:"status"`
+	Keyword string `json:"keyword" form:"keyword"`
 }
 
 type AddListForm struct {

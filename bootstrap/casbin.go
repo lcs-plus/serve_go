@@ -4,6 +4,7 @@ import (
 	"0121_1/global"
 	"fmt"
 	"github.com/casbin/casbin/v2"
+	"github.com/casbin/casbin/v2/util"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 )
 
@@ -19,6 +20,9 @@ func casbinInit() *casbin.Enforcer {
 		global.App.Log.Error(fmt.Sprintf("failed to initialize Casbin enforcer: %w", err))
 		return nil
 	}
+
+	// 添加路径匹配函数
+	enforcer.AddFunction("keyMatch2", util.KeyMatch2Func)
 
 	err = enforcer.LoadPolicy()
 	if err != nil {

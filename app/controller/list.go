@@ -12,7 +12,7 @@ func GetList(c *gin.Context) {
 	var listForm models.GetListForm
 	err := c.ShouldBind(&listForm)
 	if err != nil {
-		return
+		panic(err)
 	}
 
 	list := services.GetList(&listForm)
@@ -30,7 +30,6 @@ func AddMsg(c *gin.Context) {
 	if err != nil {
 		return
 	}
-
 }
 
 func GetTestList(c *gin.Context) {

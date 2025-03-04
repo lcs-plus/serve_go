@@ -5,6 +5,7 @@ import (
 	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func CasbinMiddleware(enforcer *casbin.Enforcer) gin.HandlerFunc {
@@ -24,7 +25,7 @@ func CasbinMiddleware(enforcer *casbin.Enforcer) gin.HandlerFunc {
 		obj := c.Request.URL.Path
 		act := c.Request.Method
 
-		enforce, err := enforcer.Enforce(claims.Role, obj, act)
+		enforce, err := enforcer.Enforce(strconv.Itoa(claims.Id), obj, act)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
