@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"0121_1/app/models"
+	"0121_1/app/models/v1/system"
 	"0121_1/global"
 	"go.uber.org/zap"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -102,6 +103,7 @@ func initMySqlTables(db *gorm.DB) {
 	err := db.AutoMigrate(
 		models.User{},
 		models.List{},
+		system.Apps{},
 	)
 	if err != nil {
 		global.App.Log.Error("migrate table failed", zap.Any("err", err))
